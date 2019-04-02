@@ -53,3 +53,7 @@
     c. define algorithm to convert data into states(important)
     p.s. have tutorial
     hard level: *****
+    
+    
+ NOTE: Ubuntu 16.04 Fetch info:
+ https://answers.ros.org/question/306579/unable-to-launch-fetch-simulation-in-gazebo-7-ros-kinetic/
