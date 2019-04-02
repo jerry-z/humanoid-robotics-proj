@@ -1,0 +1,8 @@
+prefix=/home/jzhang102/Documents/humanoid_proj/ros_ws/devel
+
+Name: gym_construct
+Description: Description of gym_construct
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/jzhang102/Documents/humanoid_proj/ros_ws/devel/lib 
+Requires: 

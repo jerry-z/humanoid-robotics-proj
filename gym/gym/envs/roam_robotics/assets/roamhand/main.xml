@@ -1,0 +1,108 @@
+<!-- ROAM -->
+
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco>
+	<compiler angle="radian" coordinate="local" eulerseq="xyz" inertiafromgeom="true"></compiler>
+	<actuator>
+		<position ctrllimited="true" ctrlrange="-1.2 1.2" joint="palm_slide_X" kp="200" name="palm_slide_X_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-1.2 1.2" joint="palm_slide_Y" kp="200" name="palm_slide_Y_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-1.2 1.2" joint="palm_slide_Z" kp="200" name="palm_slide_Z_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-3.14 3.14" joint="palm_eular_Z" kp="200" gear="1 0 0 0 0 0" name="palm_eular_Z_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-3.14 3.14" joint="palm_eular_Y" kp="200" gear="1 0 0 0 0 0" name="palm_eular_Y_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-3.14 3.14" joint="palm_eular_X" kp="200" gear="1 0 0 0 0 0" name="palm_eular_X_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="f1_roll_joint" kp="200" name="f1_roll_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="f1_prox_joint" kp="200" name="f1_prox_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="f1_dist_joint" kp="200" name="f1_dist_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="f2_roll_joint" kp="200" name="f2_roll_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="f2_prox_joint" kp="200" name="f2_prox_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="f2_dist_joint" kp="200" name="f2_dist_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="thumb_prox_joint" kp="200" name="thumb_prox_actuator"></position>
+		<position ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="thumb_dist_joint" kp="200" name="thumb_dist_actuator"></position>
+	</actuator>
+	<contact>
+		<exclude body1="base_link_palm" body2="f1_roll_link"></exclude>
+		<exclude body1="base_link_palm" body2="f1_prox_link"></exclude>
+		<exclude body1="base_link_palm" body2="f2_roll_link"></exclude>
+		<exclude body1="base_link_palm" body2="f2_prox_link"></exclude>
+		<exclude body1="base_link_palm" body2="thumb_prox_link"></exclude>
+	</contact>
+
+	<asset>
+		<mesh file="base_link.STL" name="base_link_palm"></mesh>
+		<mesh file="f1_roll_link.STL" name="f1_roll_link"></mesh>
+		<mesh file="f1_prox_link.STL" name="f1_prox_link"></mesh>
+		<mesh file="f1_dist_link.STL" name="f1_dist_link"></mesh>
+		<mesh file="f2_roll_link.STL" name="f2_roll_link"></mesh>
+		<mesh file="f2_prox_link.STL" name="f2_prox_link"></mesh>
+		<mesh file="f2_dist_link.STL" name="f2_dist_link"></mesh>
+		<mesh file="thumb_prox_link.STL" name="thumb_prox_link"></mesh>
+		<mesh file="thumb_dist_link.STL" name="thumb_dist_link"></mesh>
+		<material name="palm_mat" shininess="0.03" specular="0.75" texture="palm_tex"></material>
+		<texture builtin="flat" name="palm_tex" height="32" width="32" rgb1="0.5 0.5 0.5" type="cube"></texture>
+		<material name="finger_mat" shininess="0.03" specular="0.75" texture="finger_tex"></material>
+		<texture builtin="flat" name="finger_tex" height="32" width="32" rgb1="1 1 1" type="cube"></texture>
+		<texture builtin="checker" height="100" name="texplane" rgb1="0 0 0" rgb2="0.8 0.8 0.8" type="2d" width="100"/>
+        <material name="MatPlane" reflectance="0.5" shininess="1" specular="1" texrepeat="60 60" texture="texplane"/>
+	</asset>
+	<default>
+		<default class="hand">
+			<geom margin="0.001" material="geomMat" rgba="1 1 1 1" solimp="0.99 0.99 0.01" solref="0.01 1" type="mesh" user="0" condim="3"></geom>
+			<joint armature="1" damping="50" frictionloss="0" stiffness="0"></joint>
+		</default>
+	</default>
+	<worldbody>
+		<geom friction="1 0 0" name="floor0" pos="0 0 0" size="0.1 0.1 1" type="plane" condim="4" material="MatPlane"></geom>
+		<body childclass="hand" name="base_link_palm">
+			<joint armature="0.0001" axis="1 0 0" name="palm_slide_X" type="slide"></joint>
+			<joint armature="0.0001" axis="0 1 0" name="palm_slide_Y" type="slide"></joint>
+			<joint armature="0.0001" axis="0 0 1" name="palm_slide_Z" type="slide"></joint>
+			<joint armature="0.0001" axis="0 0 1" name="palm_eular_Z" ></joint>
+			<joint armature="0.0001" axis="0 1 0" name="palm_eular_Y" ></joint>
+			<joint armature="0.0001" axis="1 0 0" name="palm_eular_X" ></joint>
+	       	<geom name="base_link_palm" mesh="base_link_palm" material="palm_mat"></geom>
+			<inertial pos="7.75934454594246E-10 0.0115326647237748 -0.092627962879313" euler="0 0 0" mass="2.75986527844482"></inertial>
+			<body name="f1_roll_link" pos="0.0443163488855493 -0.00781416799501198 0" euler="-1.5707963267949 -4.98591402837476E-48 -3.14159265358979">
+				<joint axis="0 1 0" name="f1_roll_joint" range="-1.6056 1.6056"></joint>
+				<geom name="f1_roll_link" mesh="f1_roll_link" material="finger_mat"></geom>
+				<inertial pos="7.66466713569836E-08 -0.0182768240892664 0.000671582738963839" mass="0.0152373299043176"></inertial>
+				<body name="f1_prox_link" pos="0 -0.00459807621135331 0.00196410161513777" euler="-1.0471975511966 -3.75578649684289E-17 6.50521303491305E-17">
+					<joint axis="1 0 0" name="f1_prox_joint" range="-1.6056 1.6056"></joint>
+					<geom name="f1_prox_link" mesh="f1_prox_link" material="finger_mat"></geom>
+					<inertial pos="-0.000247544944282398 0.0380771668690939 0.00153790750623513" mass="0.0455617387497258"></inertial>
+					<body name="f1_dist_link" pos="0 0.0765980762113533 -0.00196410161513774" euler="1.0471975511966 7.51157299368581E-17 -7.11639149972691E-33">
+						<joint axis="1 0 0" name="f1_dist_joint" range="-1.6056 1.6056"></joint>
+						<geom name="f1_dist_link" mesh="f1_dist_link" material="finger_mat"></geom>
+						<inertial pos="-0.00017895372485683 0.0498333799240796 0.00186532066783481" mass="0.0691715964198918"></inertial>
+					</body>
+				</body>
+			</body>
+			<body name="f2_roll_link" pos="-0.0443163488855493 -0.00781416799501198 0" euler="-1.5707963267949 -2.38441736822957E-48 3.14159265358979">
+				<joint axis="0 1 0" name="f2_roll_joint" range="-1.6056 1.6056"></joint>
+				<geom name="f2_roll_link" mesh="f2_roll_link" material="finger_mat"></geom>
+				<inertial pos="7.66466713569836E-08 -0.0182768240892664 0.000671582738963839" mass="0.0455617387483564"></inertial>
+				<body name="f2_prox_link" pos="0 -0.00459807621135332 0.00196410161513777" euler="-1.0471975511966 -3.75578649684289E-17 6.50521303491304E-17">
+					<joint axis="1 0 0" name="f2_prox_joint" range="-1.6056 1.6056"></joint>
+					<geom name="f2_prox_link" mesh="f2_prox_link" material="finger_mat"></geom>
+					<inertial pos="-0.000247544944341031 0.038077166868528 0.00153790750607542" mass="0.0147287436161795"></inertial>
+					<body name="f2_dist_link" pos="0 0.0765980762113533 -0.00196410161513775" euler="1.0471975511966 7.51157299368581E-17 -7.11639149972691E-33">
+						<joint axis="1 0 0" name="f2_dist_joint" range="-1.6056 1.6056"></joint>
+						<geom name="f2_dist_link" mesh="f2_dist_link" material="finger_mat"></geom>
+						<inertial pos="-0.000178953724856837 0.0498333799240796 0.00186532066783482" mass="0.0691715964198919"></inertial>
+					</body>
+				</body>
+			</body>
+			<body name="thumb_prox_link" pos="0 0.045 0" euler="0.523598775598296 0 0">
+				<joint axis="1 0 0" name="thumb_prox_joint" range="-1.6056 1.6056" ref="0"></joint>
+				<geom name="thumb_prox_link" mesh="thumb_prox_link" material="finger_mat"></geom>
+				<inertial pos="-0.000247544946833159 0.034077166864018 -0.00146209249505136" mass="0.0455617387373498"></inertial>
+				<body name="thumb_dist_link" pos="0 0.0725980762113533 -0.00496410161513773" euler="1.0471975511966 0 0">
+					<joint axis="1 0 0" name="thumb_dist_joint" range="-1.6056 1.6056"></joint>
+					<geom name="thumb_dist_link" mesh="thumb_dist_link" material="finger_mat"></geom>
+					<inertial pos="-0.000178953724856809 0.0498333799240796 0.00186532066783479" mass="0.0691715964198918"></inertial>
+				</body>
+			</body>
+		</body>		
+
+	</worldbody>
+
+</mujoco>

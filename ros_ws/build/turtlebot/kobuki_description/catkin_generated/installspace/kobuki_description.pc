@@ -1,0 +1,8 @@
+prefix=/home/jzhang102/Documents/humanoid_proj/ros_ws/install
+
+Name: kobuki_description
+Description: Description of kobuki_description
+Version: 0.6.6
+Cflags: 
+Libs: -L/home/jzhang102/Documents/humanoid_proj/ros_ws/install/lib 
+Requires: urdf xacro

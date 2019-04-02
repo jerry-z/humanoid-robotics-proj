@@ -1,0 +1,8 @@
+prefix=/home/jzhang102/Documents/humanoid_proj/proj_ros_ws/install
+
+Name: perception
+Description: Description of perception
+Version: 0.0.0
+Cflags: -I/home/jzhang102/Documents/humanoid_proj/proj_ros_ws/install/include
+Libs: -L/home/jzhang102/Documents/humanoid_proj/proj_ros_ws/install/lib -lperception_box_fitter -lperception_crop -lperception_downsample -lperception_feature_extraction -lperception_object_recognizer -lperception_segmentation
+Requires: geometry_msgs pcl_ros rosbag roscpp rospy sensor_msgs shape_msgs simple_grasping tf

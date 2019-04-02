@@ -1,0 +1,130 @@
+<!-- See LICENSE.md for legal notices. LICENSE.md must be kept together with this file. -->
+<mujoco>
+    <size njmax="500" nconmax="100" nuser_jnt="1" nuser_site="1" nuser_tendon="1" nuser_sensor="1" nuser_actuator="16" nstack="600000"></size>
+
+    <visual>
+        <map fogstart="3" fogend="5" force="0.1"></map>
+        <quality shadowsize="4096"></quality>
+    </visual>
+
+<!-- how to change this section? -->
+    <default>
+        <default class="robot0:asset_class">
+            <geom friction="0.1 0.005 0.001" condim="6" margin="0.0005" contype="1" conaffinity="1"></geom>
+            <joint limited="true" damping="0.5" armature="0.001" margin="0.001" frictionloss="0.01"></joint>
+            <site size="0.005" rgba="0.4 0.9 0.4 1"></site>
+            <general ctrllimited="true" forcelimited="true"></general>
+        </default>
+        <default class="robot0:D_Touch">
+            <site type="box" size="0.009 0.004 0.013" pos="0 -0.004 0.018" rgba="0.8 0.8 0.8 0.15" group="4"></site>
+        </default>
+         <default class="robot0:DC_Hand">
+            <geom material="robot0:MatColl" group="4" condim="6" margin="0.0" contype="1" conaffinity="1" type="mesh"></geom>
+        </default>
+        <default class="robot0:D_Vizual">
+            <geom material="robot0:MatViz" contype="0" conaffinity="0" group="1" type="mesh"></geom>
+            <!-- <geom material="robot0:MatViz" group="1" type="mesh"></geom> -->
+        </default>
+        <default class="robot0:free">
+            <joint type="free" damping="0" armature="0" limited="false"></joint>
+        </default>
+    </default>
+
+
+
+    <!-- old/commented out originally
+    <contact>
+        <pair geom1="robot0:C_ffdistal" geom2="robot0:C_thdistal" condim="1"></pair>
+        <pair geom1="robot0:C_ffmiddle" geom2="robot0:C_thdistal" condim="1"></pair>
+        <pair geom1="robot0:C_ffproximal" geom2="robot0:C_thdistal" condim="1"></pair>
+        <pair geom1="robot0:C_mfproximal" geom2="robot0:C_thdistal" condim="1"></pair>
+        <pair geom1="robot0:C_mfdistal" geom2="robot0:C_thdistal" condim="1"></pair>
+        <pair geom1="robot0:C_rfdistal" geom2="robot0:C_thdistal" condim="1"></pair>
+        <pair geom1="robot0:C_lfdistal" geom2="robot0:C_thdistal" condim="1"></pair>
+        <pair geom1="robot0:C_palm0" geom2="robot0:C_thdistal" condim="1"></pair>
+        <pair geom1="robot0:C_mfdistal" geom2="robot0:C_ffdistal" condim="1"></pair>
+        <pair geom1="robot0:C_rfdistal" geom2="robot0:C_mfdistal" condim="1"></pair>
+        <pair geom1="robot0:C_lfdistal" geom2="robot0:C_rfdistal" condim="1"></pair>
+        <pair geom1="robot0:C_mfproximal" geom2="robot0:C_ffproximal" condim="1"></pair>
+        <pair geom1="robot0:C_rfproximal" geom2="robot0:C_mfproximal" condim="1"></pair>
+        <pair geom1="robot0:C_lfproximal" geom2="robot0:C_rfproximal" condim="1"></pair>
+        <pair geom1="robot0:C_lfdistal" geom2="robot0:C_rfdistal" condim="1"></pair>
+        <pair geom1="robot0:C_lfdistal" geom2="robot0:C_mfdistal" condim="1"></pair>
+        <pair geom1="robot0:C_lfdistal" geom2="robot0:C_rfmiddle" condim="1"></pair>
+        <pair geom1="robot0:C_lfmiddle" geom2="robot0:C_rfdistal" condim="1"></pair>
+        <pair geom1="robot0:C_lfmiddle" geom2="robot0:C_rfmiddle" condim="1"></pair>
+    </contact>
+    -->
+
+    <sensor>
+
+
+        <jointpos name="robot0:Sjp_frj1" joint="robot0:f1_roll_joint"></jointpos>
+        <jointpos name="robot0:Sjp_fpj1" joint="robot0:f1_prox_joint"></jointpos>
+        <jointpos name="robot0:Sjp_fdj1" joint="robot0:f1_dist_joint"></jointpos>
+        <jointpos name="robot0:Sjp_frj2" joint="robot0:f2_roll_joint"></jointpos>
+        <jointpos name="robot0:Sjp_fpj2" joint="robot0:f2_prox_joint"></jointpos>
+        <jointpos name="robot0:Sjp_fdj2" joint="robot0:f2_dist_joint"></jointpos>
+        <jointpos name="robot0:Sjp_tpj" joint="robot0:thumb_prox_joint"></jointpos>
+        <jointpos name="robot0:Sjp_tdj" joint="robot0:thumb_dist_joint"></jointpos>
+
+        <!--REWARD FUNCTION DEFINED BY SENSOR DATA [8:] -->
+        <torque name="robot0:Stq_frj1" site="robot0:frs1"></torque>
+        <torque name="robot0:Stq_fpj1" site="robot0:fps1"></torque>
+        <torque name="robot0:Stq_fdj1" site="robot0:fds1"></torque>
+        <torque name="robot0:Stq_frj2" site="robot0:frs2"></torque>
+        <torque name="robot0:Stq_fpj2" site="robot0:fps2"></torque>
+        <torque name="robot0:Stq_fdj2" site="robot0:fds2"></torque>
+        <torque name="robot0:Stq_tpj" site="robot0:tps"></torque>
+        <torque name="robot0:Stq_tdj" site="robot0:tds"></torque>
+
+
+        <!-- OLD
+        <jointpos name="robot0:Sjp_fpj1" joint="robot0:fpj1"></jointpos>
+        <jointpos name="robot0:Sjp_fdj1" joint="robot0:fdj1"></jointpos>
+        <jointpos name="robot0:Sjp_fpj2" joint="robot0:fpj2"></jointpos>
+        <jointpos name="robot0:Sjp_fdj2" joint="robot0:fdj2"></jointpos>
+        <!- -REWARD FUNCTION DEFINED BY SENSOR DATA [4:] - ->
+        <torque name="robot0:Stq_fpj1" site="robot0:fps1"></torque>
+        <torque name="robot0:Stq_fdj1" site="robot0:fds1"></torque>
+        <torque name="robot0:Stq_fpj2" site="robot0:fps2"></torque>
+        <torque name="robot0:Stq_fdj2" site="robot0:fds2"></torque>
+    -->
+
+
+
+
+
+
+
+        
+    </sensor>
+
+    <actuator>
+
+        <position class="robot0:asset_class" ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="robot0:f1_roll_joint" kp="200" name="robot0:f1_roll_actuator" forcerange="-1.5 1.5"></position>
+        <position  class="robot0:asset_class" ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="robot0:f1_prox_joint" kp="200" name="robot0:f1_prox_actuator" forcerange="-1.5 1.5"></position>
+        <position class="robot0:asset_class" ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="robot0:f1_dist_joint" kp="200" name="robot0:f1_dist_actuator" forcerange="-1.5 1.5"></position>
+        <position class="robot0:asset_class" ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="robot0:f2_roll_joint" kp="200" name="robot0:f2_roll_actuator" forcerange="-1.5 1.5"></position>
+        <position class="robot0:asset_class" ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="robot0:f2_prox_joint" kp="200" name="robot0:f2_prox_actuator" forcerange="-1.5 1.5"></position>
+        <position class="robot0:asset_class" ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="robot0:f2_dist_joint" kp="200" name="robot0:f2_dist_actuator" forcerange="-1.5 1.5"></position>
+        <position class="robot0:asset_class" ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="robot0:thumb_prox_joint" kp="200" name="robot0:thumb_prox_actuator" forcerange="-1.5 1.5"></position>
+        <position class="robot0:asset_class" ctrllimited="true" ctrlrange="-1.6056 1.6056" joint="robot0:thumb_dist_joint" kp="200" name="robot0:thumb_dist_actuator" forcerange="-1.5 1.5"></position>
+
+
+        <!--
+        <position ctrllimited="true" ctrlrange="-1.2 1.2" joint="palm_slide_X" kp="200" name="palm_slide_X_actuator"></position>
+        <position ctrllimited="true" ctrlrange="-1.2 1.2" joint="palm_slide_Y" kp="200" name="palm_slide_Y_actuator"></position>
+        <position ctrllimited="true" ctrlrange="-1.2 1.2" joint="palm_slide_Z" kp="200" name="palm_slide_Z_actuator"></position>
+        <position ctrllimited="true" ctrlrange="-3.14 3.14" joint="palm_eular_Z" kp="200" gear="1 0 0 0 0 0" name="palm_eular_Z_actuator"></position>
+        <position ctrllimited="true" ctrlrange="-3.14 3.14" joint="palm_eular_Y" kp="200" gear="1 0 0 0 0 0" name="palm_eular_Y_actuator"></position>
+        <position ctrllimited="true" ctrlrange="-3.14 3.14" joint="palm_eular_X" kp="200" gear="1 0 0 0 0 0" name="palm_eular_X_actuator"></position> -->
+
+        <!-- OLD
+        <position name="robot0:A_fp1" class="robot0:asset_class" user="2038" joint="robot0:fpj1" ctrlrange="0 1.5709" kp="1" forcerange="-1.5 1.5"></position>
+        <position name="robot0:A_fd1" class="robot0:asset_class" user="2036" joint="robot0:fdj1" ctrlrange="0 1.5709" kp="1" forcerange="-1.5 1.5"></position>
+        <position name="robot0:A_fp2" class="robot0:asset_class" user="2004" joint="robot0:fpj2" ctrlrange="0 1.5709" kp="1" forcerange="-1.5 1.5"></position>
+        <position name="robot0:A_fd2" class="robot0:asset_class" user="2002" joint="robot0:fdj2" ctrlrange="0 1.5709" kp="1" forcerange="-1.5 1.5"></position> -->
+        <!-- <position name="robot0:A_palm" class="robot0:asset_class" user="2038" joint="robot0:palmj" ctrlrange="0 2" kp="1" forcerange="-1.5 1.5"></position> -->
+    </actuator>
+</mujoco>

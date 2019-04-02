@@ -1,0 +1,155 @@
+<!-- See LICENSE.md for legal notices. LICENSE.md must be kept together with this file. -->
+<mujoco>
+    <!-- <body name="robot0:palm" pos="1 1.25 0.072" euler="0 -1.5708 0"> -->
+    <body name="robot0:obs_camera" pos="0 0 1.5" euler="0 0 0">
+        <camera euler="0 0 0" fovy="20" name="external_camera_0" pos="0 0 0"></camera>
+    </body>
+    <body childclass="hand" name="robot0:base_link_palm" pos="0 0 0.5" euler="0 -3.14159 1.5708">
+        <inertial pos="7.89847960955329E-10 0.0115158909800917 -0.0921501655868837" euler="0 0 0" mass="2.650"></inertial>
+
+        <!--TODO: what the diaginertia should be?-->
+        <!-- <inertial mass="6.5" pos="0 0 0" ></inertial> -->
+        <geom class="robot0:D_Vizual" pos="0 0 0" name="robot0:V_palm" contype="0" conaffinity="0" mesh="robot0:base_link_palm" euler="0 0 0"></geom>
+        <geom class="robot0:DC_Hand" pos="0 0 0" name="robot0:C_palm" contype="1" conaffinity="0" mesh="robot0:base_link_palm" euler="0 0 0"></geom>
+
+
+        <joint axis="1 0 0" name="robot0:palm_slide_X" type="slide"></joint>
+        <joint axis="0 1 0" name="robot0:palm_slide_Y" type="slide"></joint>
+        <joint axis="0 0 1" name="robot0:palm_slide_Z" type="slide"></joint>
+        <joint axis = "0 0 1" name="robot0:palm_eular_Z" type="hinge"></joint>
+
+
+
+        <!--TODO: what the childclass refer to? and I am not sure the pos and euler.......-->
+       
+<!--Finger1-->
+
+
+        <body childclass="robot0:asset_class" name="robot0:fr1" pos="0.044316 -0.0078142 0" euler="-1.5708 -4.9859E-48 -3.1416">
+            <inertial pos="7.66466713569836E-08 -0.0182768240892664 0.000671582738963839" mass="0.01"></inertial>
+            <joint axis="0 -1 0" name="robot0:f1_roll_joint" range="-1.5708 0.523599"></joint> <!-- user? damping? stiffness?-->
+            <geom class="robot0:D_Vizual" pos="0 0 0" name="robot0:V_fr1"  mesh="robot0:f1_roll_link" euler="0 0 0"></geom>
+            <geom class="robot0:DC_Hand" pos="0 0 0" name="robot0:C_fr1" mesh="robot0:f1_roll_link" euler="0 0 0"></geom>
+            <site name="robot0:frs1" pos="0 0 0"></site> <!-- site???? -->
+
+            <body name="robot0:fp1"  pos="0 -0.004 -0.003" euler="0 -6.1972E-33 0">
+                <inertial pos="-0.000210257298990969 0.0379020580134808 0.000453030844461456" mass="0.050"></inertial>
+                <joint axis="1 0 0" name="robot0:f1_prox_joint" range="-1.04 0.523599"></joint>
+                <geom class="robot0:D_Vizual" name="robot0:V_fp1" mesh="robot0:f1_prox_link"></geom>
+                <geom class="robot0:DC_Hand" name="robot0:C_fp1" contype="1" conaffinity="0" mesh="robot0:f1_prox_link"></geom>
+                <site name="robot0:fps1" pos="0 0 0"></site>
+
+                <body name="robot0:fd1" pos="0 0.072 0" euler="9.8608E-32 -1.5046E-32 0">
+                    <inertial pos="-0.000148592537483797 0.0477575844315998 0.000847728755696978" mass="0.075"></inertial>
+
+                    <joint axis="1 0 0" name="robot0:f1_dist_joint" range="0 1.57" ref="0"></joint>
+                    <geom class="robot0:D_Vizual" name="robot0:V_fd1" mesh="robot0:f1_dist_link"></geom>
+                    <geom class="robot0:DC_Hand" name="robot0:C_fd1" mesh="robot0:f1_dist_link"></geom>
+                    <site name="robot0:fds1" pos="0 0 0"></site>
+
+                </body>
+            </body>
+        </body>
+
+
+    <!-- OLD
+        <body childclass="robot0:asset_class" name="robot0:fp1" pos="0 0.051 -0.015" euler="0.785398 0 0">
+        <!- - <body name="robot0:fp1" pos="0 0.051 -0.015" euler="0 0 0"> - ->
+            <!- - <inertial pos="0.001 -0.002 0.29" quat="0.982 -0.016 0 -0.188" mass="0.08"></inertial> - ->
+            <!- - <inertial diaginertia="1.04866742 1.01394578 0.40660069" mass="0.1879953" pos="0 0 0"></inertial> - ->
+            <joint name="robot0:fpj1" type="hinge" pos="0 0 0" axis="-1 0 0" range="0 1.5709" damping="0.1" stiffness="0.05" user="1123"></joint>
+            <geom class="robot0:D_Vizual" pos="0 0 0" name="robot0:V_fp1" mesh="robot0:proximal" euler="0 0 0"></geom> <!- - WHAT IS THIS D_VIZUAL VS DC_HAND- ->
+            <geom class="robot0:DC_Hand"  pos="0 0 0" name="robot0:C_fp1" contype="1" conaffinity="0" mesh="robot0:proximal" euler="0 0 0"></geom>
+            <site name="robot0:fps1" pos="0 0 0"></site>
+            <body name="robot0:fd1" pos="0 0 -0.07">
+                <!- - <inertial pos="0.003 0 0.016" quat="0.504 0.496 0.495 0.504" mass="0.07"></inertial> - ->
+                <joint name="robot0:fdj1" type="hinge" pos="0 0 0" axis="-1 0 0" range="0 1.5709" damping="0.1" stiffness="0.05" user="1123"></joint>
+                <geom class="robot0:D_Vizual" name="robot0:V_fd1" mesh="robot0:distal"></geom>
+                <geom class="robot0:DC_Hand" name="robot0:C_fd1" mesh="robot0:distal"></geom>
+                <site name="robot0:fds1" pos="0 0 0"></site>
+            </body>
+        </body>
+    -->
+
+<!--finger2-->
+
+        <body childclass="robot0:asset_class" name="robot0:fr2" pos="-0.044316 -0.0078142 0"  euler="-1.5708 -2.3844E-48 3.1416">
+            <inertial pos="7.66466713569836E-08 -0.0182768240892664 0.000671582738963839" mass="0.01"></inertial>
+            <joint axis="0 1 0" name="robot0:f2_roll_joint" range="-.01 0.01"></joint> <!-- user? damping? stiffness?-->
+            <geom class="robot0:D_Vizual" pos="0 0 0" name="robot0:V_fr2" mesh="robot0:f2_roll_link" euler="0 0 0"></geom>
+            <geom class="robot0:DC_Hand" pos="0 0 0" name="robot0:C_fr2" mesh="robot0:f2_roll_link" euler="0 0 0"></geom>
+            <site name="robot0:frs2" pos="0 0 0"></site> <!-- site???? -->
+
+            <body name="robot0:fp2" pos="0 -0.004 -0.003" euler="0 6.1972E-33 0">
+                <inertial pos="-0.000247544944341031 0.038077166868528 0.00153790750607542" mass="0.050"></inertial>
+                <joint axis="1 0 0" name="robot0:f2_prox_joint" range="-1.04 0.523599"></joint>
+                <geom class="robot0:D_Vizual" name="robot0:V_fp2" mesh="robot0:f2_prox_link"></geom>
+                <geom class="robot0:DC_Hand" name="robot0:C_fp2" contype="1" conaffinity="0" mesh="robot0:f2_prox_link"></geom>
+                <site name="robot0:fps2" pos="0 0 0"></site>
+
+                <body name="robot0:fd2" pos="0 0.072 0" euler="-9.8608E-32 1.5046E-32 0">
+                    <inertial pos="-0.000148592537483797 0.0477575844315998 0.000847728755696988" mass="0.075"></inertial>
+                    <joint axis="1 0 0" name="robot0:f2_dist_joint" range="0 1.57" ref="0"></joint>
+                    <geom class="robot0:D_Vizual" name="robot0:V_fd2" mesh="robot0:f2_dist_link"></geom>
+                    <geom class="robot0:DC_Hand" name="robot0:C_fd2" mesh="robot0:f2_dist_link"></geom>
+                    <site name="robot0:fds2" pos="0 0 0"></site>
+
+                </body>
+            </body>
+        </body>
+
+
+
+
+
+        <!-- OLD
+        <body childclass="robot0:asset_class" name="robot0:fp2" pos="0 -0.051 -0.015" euler="-0.785398 0 3.1416">
+        <!- - <body name="robot0:fp2" pos="0 -0.051 -0.015" euler="0 0 3.1416"> -->
+            <!-- <inertial pos="0.001 -0.002 0.29" quat="0.982 -0.016 0 -0.188" mass="0.08"></inertial> - ->
+            <joint name="robot0:fpj2" type="hinge" pos="0 0 0" axis="-1 0 0" range="0 1.5708" damping="0.1" stiffness="0.05" user="1123"></joint>
+            <geom class="robot0:D_Vizual" pos="0 0 0" name="robot0:V_fp2" mesh="robot0:proximal" euler="0 0 0"></geom>
+            <geom class="robot0:DC_Hand" pos="0 0 0" name="robot0:C_fp2" contype="1" conaffinity="0" mesh="robot0:proximal" euler="0 0 0"></geom>
+            <site name="robot0:fps2" pos="0 0 0"></site>
+            <body name="robot0:fd2" pos="0 0 -0.07">
+                <!- - <inertial pos="0.003 0 0.016" quat="0.504 0.496 0.495 0.504" mass="0.07"></inertial> - ->
+                <joint name="robot0:fdj2" type="hinge" pos="0 0 0" axis="-1 0 0" range="0 1.5708" damping="0.1" stiffness="0.05" user="1123"></joint>
+                <geom class="robot0:D_Vizual" name="robot0:V_fd2" mesh="robot0:distal"></geom>
+                <geom class="robot0:DC_Hand" name="robot0:C_fd2" mesh="robot0:distal"></geom>
+                <site name="robot0:fds2" pos="0 0 0"></site>
+            </body>
+        </body>
+        -->
+
+
+<!-- THUMB, NEWLY ADDED-->
+
+        <body childclass="robot0:asset_class" name="robot0:tp" pos="0 0.048 -0.004" euler="1.5708 0 0">
+        <!-- <body name="robot0:fp2" pos="0 -0.051 -0.015" euler="0 0 3.1416"> -->
+            <inertial pos="-0.000210257302200997 0.0379020580211939 0.000453030843472382" mass="0.05"></inertial>
+            <joint name="robot0:thumb_prox_joint" type="hinge" pos="0 0 0" axis="1 0 0" range="-1.0444 0.523599" damping="0.1" stiffness="0.05" user="1123"></joint>
+            <geom class="robot0:D_Vizual" pos="0 0 0" name="robot0:V_tp" mesh="robot0:thumb_prox_link" euler="0 0 0"></geom>
+            <geom class="robot0:DC_Hand" pos="0 0 0" name="robot0:C_tp" contype="1" conaffinity="0" mesh="robot0:thumb_prox_link" euler="0 0 0"></geom>
+            <site name="robot0:tps" pos="0 0 0"></site>
+            <body name="robot0:td" pos="0 0.072 0" euler="0 0 0">
+                <inertial pos="-0.000148592537483783 0.0477575844315998 0.000847728755696983" mass="0.075"></inertial>
+                <joint name="robot0:thumb_dist_joint" type="hinge" pos="0 0 0" axis="1 0 0" range="0 1.57"></joint>
+                <geom class="robot0:D_Vizual" name="robot0:V_td" mesh="robot0:thumb_dist_link"></geom>
+                <geom class="robot0:DC_Hand" name="robot0:C_td" mesh="robot0:thumb_dist_link"></geom>
+                <site name="robot0:tds" pos="0 0 0"></site>
+            </body>
+        </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </body>
+</mujoco>

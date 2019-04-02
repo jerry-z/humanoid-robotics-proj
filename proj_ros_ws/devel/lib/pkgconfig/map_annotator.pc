@@ -1,0 +1,8 @@
+prefix=/home/jzhang102/Documents/humanoid_proj/proj_ros_ws/devel
+
+Name: map_annotator
+Description: Description of map_annotator
+Version: 0.0.0
+Cflags: -I/home/jzhang102/Documents/humanoid_proj/proj_ros_ws/devel/include
+Libs: -L/home/jzhang102/Documents/humanoid_proj/proj_ros_ws/devel/lib 
+Requires: roscpp rospy message_runtime
