@@ -3,7 +3,7 @@ import gym
 env = gym.make('FetchPickAndPlace-v1')
 #env = gym.make('SeaHandGraspCube-v0')
 
-
+#TEST
 for i_episode in range(20):
     observation = env.reset()
    # ipdb.set_trace() 
