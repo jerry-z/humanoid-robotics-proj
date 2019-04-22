@@ -54,6 +54,8 @@
     p.s. have tutorial
     hard level: *****
     
+ 
+ git clone https://bitbucket.org/theconstructcore/open_ai_gym_construct.git
     
  NOTE: Ubuntu 16.04 Fetch info:
  https://answers.ros.org/question/306579/unable-to-launch-fetch-simulation-in-gazebo-7-ros-kinetic/
