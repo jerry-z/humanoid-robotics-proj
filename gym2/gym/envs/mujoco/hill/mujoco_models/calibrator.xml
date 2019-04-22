@@ -1,0 +1,5 @@
+<mujoco>
+    <body name="calibrator" pos="0 0 1.75" euler="0 0 0">
+        <geom pos="0 0 0" name="robot0:V_palm" contype="0" conaffinity="0" type="box" size="0.01 0.01 0.01" euler="0 0 0"></geom>
+    </body>
+</mujoco>
