@@ -12,7 +12,8 @@ for i_episode in range(20):
    # ipdb.set_trace() 
 
     for t in range(3000):
-        env.env.sim.render(100,100)
+        #env.env.sim.render(100,100)
+        env.render()
         #env.render(mode='human')
         print(observation)
         action = env.action_space.sample()

@@ -1,6 +1,6 @@
 import numpy as np
 
-from gym.envs.robotics import rotations, robot_env, utils
+from gym.envs.humanoid_robotics import rotations, robot_env, utils
 
 
 def goal_distance(goal_a, goal_b):
@@ -110,11 +110,11 @@ class FetchEnv(robot_env.RobotEnv):
             achieved_goal = grip_pos.copy()
         else:
             achieved_goal = np.squeeze(object_pos.copy())
-        # obs = np.concatenate([
-        #     grip_pos, object_pos.ravel(), object_rel_pos.ravel(), gripper_state, object_rot.ravel(),
-        #     object_velp.ravel(), object_velr.ravel(), grip_velp, gripper_vel,
-        # ])
-        obs = self.sim.render(width=96,height=96,camera_name='head_camera_rgb').ravel()
+        obs = np.concatenate([
+            grip_pos, object_pos.ravel(), object_rel_pos.ravel(), gripper_state, object_rot.ravel(),
+            object_velp.ravel(), object_velr.ravel(), grip_velp, gripper_vel,
+        ])
+        #obs = self.sim.render(width=96,height=96,camera_name='head_camera_rgb').ravel()
         #print(obs)
         return {
             'observation': obs.copy(),
