@@ -114,7 +114,7 @@ class FetchEnv(robot_env.RobotEnv):
         #     grip_pos, object_pos.ravel(), object_rel_pos.ravel(), gripper_state, object_rot.ravel(),
         #     object_velp.ravel(), object_velr.ravel(), grip_velp, gripper_vel,
         # ])
-        obs = self.sim.render(width=96,height=96,camera_name='head_camera_rgb')
+        obs = self.sim.render(width=96,height=96,camera_name='head_camera_rgb').ravel()
         #print(obs)
         return {
             'observation': obs.copy(),
