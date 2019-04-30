@@ -113,7 +113,7 @@ class FetchEnv(robot_env.RobotEnv):
         obs = np.concatenate([
             grip_pos, object_pos.ravel(), object_rel_pos.ravel(), gripper_state, object_rot.ravel(),
             object_velp.ravel(), object_velr.ravel(), grip_velp, gripper_vel,
-        ])
+        ]) 
         #obs = self.sim.render(width=96,height=96,camera_name='head_camera_rgb').ravel()
         #print(obs)
         return {
@@ -135,7 +135,12 @@ class FetchEnv(robot_env.RobotEnv):
         # Visualize target.
         sites_offset = (self.sim.data.site_xpos - self.sim.model.site_pos).copy()
         site_id = self.sim.model.site_name2id('target0')
-        self.sim.model.site_pos[site_id] = self.goal - sites_offset[0]
+        #self.sim.model.site_pos[site_id] = self.goal - sites_offset[0]
+        site_id2 = self.sim.model.site_name2id('target1')
+        self.sim.model.site_pos[site_id2] = self.goal - sites_offset[0]
+        self.sim.model.site_pos[site_id2][2] = 0.42
+        #print(np.shape(self.sim.model.site_pos[site_id2]))
+
         self.sim.forward()
 
     def _reset_sim(self):
