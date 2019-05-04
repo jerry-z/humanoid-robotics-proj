@@ -1,0 +1,17 @@
+<mujoco>
+	<!--actuator>
+		<position ctrllimited="true" ctrlrange="-3.14 3.14" joint="main_camera_joint" name="main_camera_actuator"></position>
+	</actuator-->
+	<body name="object_" pos="1.35 1.64 0.15">
+	    <geom name="object_" friction="1.2 0.005 0.0001" rgba="0 0 0 1" size="0.15 0.15 0.15" type="box"/>
+    </body>
+
+	<body name="main_camera_base2" pos="1.35 1.64 0.25" euler="1.57  3.14 0">
+		<geom name="main_camera_base2" type="mesh" material="robot0:geomMat" mesh="mcamera_base"></geom>
+		<body name="main_camera2" pos="0.1 0.68 -.07" euler="-0.5 3.14 0">
+            <geom name="main_camera2" type="mesh" material="camera_color" mesh="mcamera"></geom>
+			<!--joint axis="1 0 0" name="main_camera_joint" type="hinge"></joint-->
+            <camera euler="3.1415 0 0" fovy="50" name="main_camera_rgb2" pos="0 0 0"></camera>
+        </body>
+    </body>
+</mujoco>

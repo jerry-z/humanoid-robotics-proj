@@ -1,11 +1,11 @@
 import os
 import copy
 import numpy as np
-
+import ipdb
 import gym
 from gym import error, spaces
 from gym.utils import seeding
-
+from mujoco_py.builder import cymj
 try:
     import mujoco_py
 except ImportError as e:
@@ -21,10 +21,14 @@ class RobotEnv(gym.GoalEnv):
         if not os.path.exists(fullpath):
             raise IOError('File {} does not exist'.format(fullpath))
 
-        model = mujoco_py.load_model_from_path(fullpath)
-        self.sim = mujoco_py.MjSim(model, nsubsteps=n_substeps)
+        self.model = mujoco_py.load_model_from_path(fullpath)
+        self.sim = mujoco_py.MjSim(self.model, nsubsteps=n_substeps)
         self.sim.data.set_joint_qpos('robot0:head_tilt_joint', 0.3) #TILT ROBOT HEAD
         self.viewer = None
+        self.main_cam = cymj.MjRenderContext(self.sim,0)
+        self.main_cam2 = cymj.MjRenderContext(self.sim,0)
+
+
 
         self.metadata = {
             'render.modes': ['human', 'rgb_array'],
@@ -67,6 +71,7 @@ class RobotEnv(gym.GoalEnv):
             'is_success': self._is_success(obs['achieved_goal'], self.goal),
         }
         reward = self.compute_reward(obs['achieved_goal'], self.goal, info)
+        #ipdb.set_trace()
         return obs, reward, done, info
 
     def reset(self):

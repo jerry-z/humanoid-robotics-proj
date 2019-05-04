@@ -1,5 +1,5 @@
 import numpy as np
-
+import ipdb
 from gym.envs.humanoid_robotics import rotations, robot_env, utils
 
 
@@ -8,7 +8,7 @@ def goal_distance(goal_a, goal_b):
     return np.linalg.norm(goal_a - goal_b, axis=-1)
 
 
-class FetchEnv(robot_env.RobotEnv):
+class FetchEnvObs(robot_env.RobotEnv):
     """Superclass for all Fetch environments.
     """
 
@@ -43,7 +43,7 @@ class FetchEnv(robot_env.RobotEnv):
         self.distance_threshold = distance_threshold
         self.reward_type = reward_type
 
-        super(FetchEnv, self).__init__(
+        super(FetchEnvObs, self).__init__(
             model_path=model_path, n_substeps=n_substeps, n_actions=4,
             initial_qpos=initial_qpos)
 
@@ -52,11 +52,34 @@ class FetchEnv(robot_env.RobotEnv):
 
     def compute_reward(self, achieved_goal, goal, info):
         # Compute distance between goal and the achieved goal.
-        d = goal_distance(achieved_goal, goal)
+        g_ = goal_distance(achieved_goal, goal)
         if self.reward_type == 'sparse':
-            return -(d > self.distance_threshold).astype(np.float32)
+            #ipdb.set_trace()
+            #return -(goal > self.distance_threshold).astype(np.float32)
+            if self.fingers_contact():
+                g_1 = g_ + 1
+                return -(g_1 > self.distance_threshold).astype(np.float32)
+            else:
+                return (g_ > self.distance_threshold).astype(np.float32)
         else:
-            return -d
+            return -g_
+
+    def fingers_contact(self):
+        # require that two fingers do not touch
+        robot_geom = ['l_gripper_finger_link','r_gripper_finger_link', 'shoulder_pan_link', 'shoulder_lift_link',
+                    'upperarm_roll_link','elbow_flex_link','forearm_roll_link','wrist_flex_link','wrist_roll_link','gripper_link']
+        robot_geom = ['robot0:' + name for name in robot_geom]
+        robot_id = [self.model.geom_name2id(name) for name in robot_geom]
+        obstacle_id = [self.model.geom_name2id('obstacle')]
+
+        ncon = self.sim.data.ncon
+        contacts = self.sim.data.contact[:ncon]
+        for contact in contacts:
+            if contact.geom1 in robot_id and contact.geom2 in obstacle_id:
+                return False
+            if contact.geom2 in robot_id and contact.geom1 in obstacle_id:
+                return False
+        return True
 
     # RobotEnv methods
     # ----------------------------

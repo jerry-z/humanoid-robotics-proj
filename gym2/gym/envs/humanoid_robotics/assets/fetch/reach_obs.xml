@@ -18,7 +18,9 @@
 		<include file="camera.xml"></include>
 		<include file="camera2.xml"></include>
 
-
+		<body name="obstacle" pos="1.3 1.1 0.0" euler="0 0 0">
+			<geom name="obstacle" type="mesh"  mesh="obstacle"></geom>
+		</body>
 		
 		<body pos="1.3 0.75 0.2" name="table0">
 			<geom size="0.25 0.35 0.2" type="box" mass="2000" material="table_mat"></geom>

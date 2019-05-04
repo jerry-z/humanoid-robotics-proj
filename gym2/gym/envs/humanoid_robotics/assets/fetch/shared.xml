@@ -39,6 +39,8 @@
       
         <mesh file="stand.STL" name="mcamera_base"></mesh>
         <mesh file="main_camera_link.STL" name="mcamera"></mesh>
+        <mesh file="obstacle.STL" name="obstacle"></mesh>
+
  
     </asset>
 

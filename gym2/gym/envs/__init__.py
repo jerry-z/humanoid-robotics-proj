@@ -825,6 +825,47 @@ for reward_type in ['sparse', 'dense']:
     )
 
     register(
+        id='H_FetchPush{}-v1'.format(suffix),
+        entry_point='gym.envs.humanoid_robotics:FetchPushEnv',
+        kwargs=kwargs,
+        max_episode_steps=50,
+    )
+
+    register(
+        id='H_FetchPickAndPlace{}-v1'.format(suffix),
+        entry_point='gym.envs.humanoid_robotics:FetchPickAndPlaceEnv',
+        kwargs=kwargs,
+        max_episode_steps=50,
+
+    )
+    
+    register(
+        id='H_FetchPickAndPlaceObs{}-v1'.format(suffix),
+        entry_point='gym.envs.humanoid_robotics:FetchPickAndPlaceObsEnv',
+        kwargs=kwargs,
+        max_episode_steps=50,
+
+    )
+
+
+    register(
+        id='H_FetchPushObs{}-v1'.format(suffix),
+        entry_point='gym.envs.humanoid_robotics:FetchPushObsEnv',
+        kwargs=kwargs,
+        max_episode_steps=50,
+
+    )
+
+    register(
+        id='H_FetchReachObs{}-v1'.format(suffix),
+        entry_point='gym.envs.humanoid_robotics:FetchReachObsEnv',
+        kwargs=kwargs,
+        max_episode_steps=50,
+
+    )
+
+
+    register(
         id='FetchPush{}-v1'.format(suffix),
         entry_point='gym.envs.robotics:FetchPushEnv',
         kwargs=kwargs,

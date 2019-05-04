@@ -6,7 +6,7 @@ import pandas
 #env = gym.make('HandReach-v0')
 #env = gym.make('FetchPickAndPlace-v1')
 
-env = gym.make('H_FetchReach-v1')
+env = gym.make('H_FetchPickAndPlace-v1')
 #camera_data = []
 #camera_label = []
 

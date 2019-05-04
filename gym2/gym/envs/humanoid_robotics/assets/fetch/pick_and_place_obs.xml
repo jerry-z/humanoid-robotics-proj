@@ -22,6 +22,10 @@
 			<geom size="0.25 0.35 0.2" type="box" mass="2000" material="table_mat"></geom>
 		</body>
 		
+		<body name="obstacle" pos="1.24 1.1 0.08" euler="0 0 0">
+			<geom name="obstacle" type="mesh"  mesh="obstacle"></geom>
+		</body>
+
 		<body name="object0" pos="0.025 0.025 0.025">
 			<joint name="object0:joint" type="free" damping="0.01"></joint>
 			<geom size="0.025 0.025 0.025" type="box" condim="3" name="object0" material="block_mat" mass="2"></geom>
